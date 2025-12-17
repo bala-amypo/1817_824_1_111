@@ -44,7 +44,7 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
     
-    private enum SocialPreference{
+    public enum SocialPreference{
         INTROVERT;
         BALANCED;
     }
@@ -117,6 +117,8 @@ public class HabitProfile {
         this.socialPreference=socialPreference;
         this.updatedAt=updatedAt;
     }
-    piu
+    public HabitProfile(){
+
+    }
 
 }
