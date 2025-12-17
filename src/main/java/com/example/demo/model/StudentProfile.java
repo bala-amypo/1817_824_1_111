@@ -1,9 +1,8 @@
-package com.example.demo.model
-import jakarta.presistence.Entity
-import jakarta.presistence.Id
-import jakarta.presistence.GeneratedValue
-import jakarta.presistence.GeneratedType
-import jakarta.presistence.Column
+package com.example.demo.model;
+import jakarta.presistence.Entity;
+import jakarta.presistence.Id;
+import jakarta.presistence.GeneratedValue;
+import jakarta.presistence.GeneratedType;
 
 @Entity
 public class StudentProfile{
@@ -88,6 +87,6 @@ public class StudentProfile{
         this.createdAt=createdAt;
     }
     public StudentProfile{
-        
+
     }
 }
