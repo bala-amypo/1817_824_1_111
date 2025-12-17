@@ -2,12 +2,12 @@ package com.example.demo.model;
 import jakarta.presistence.Entity;
 import jakarta.presistence.Id;
 import jakarta.presistence.GeneratedValue;
-import jakarta.presistence.GeneratedType;
+import jakarta.presistence.GenerationType;
 
 @Entity
 public class StudentProfile{
     @Id
-    @GeneratedValue(strategy =GeneratedType.Identity)
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
     
     @Column(unique=true)
