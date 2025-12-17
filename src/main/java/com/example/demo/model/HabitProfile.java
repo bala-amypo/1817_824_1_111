@@ -19,10 +19,10 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SleepSchedule sleepSchedule;
 
-    private enum SleepSchedule{
-        EARLY;
-        REGULAR;
-        LATE;
+    public enum SleepSchedule{
+        EARLY,
+        REGULAR,
+        LATE
     }
 
     private Integer studyHoursPerDay;
@@ -30,10 +30,10 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private Level cleanlinessLevel;
    
-    private enum Level{
-        LOW;
-        MEDIUM;
-        HIGH;
+    public enum Level{
+        LOW,
+        MEDIUM,
+        HIGH
     }
 
     @Enumerated(EnumType.STRING)
@@ -45,8 +45,8 @@ public class HabitProfile {
     private SocialPreference socialPreference;
     
     public enum SocialPreference{
-        INTROVERT;
-        BALANCED;
+        INTROVERT,
+        BALANCED
     }
 
     private LocalDateTime updatedAt;
