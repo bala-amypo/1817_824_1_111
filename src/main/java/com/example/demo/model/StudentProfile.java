@@ -3,6 +3,7 @@ import jakarta.presistence.Entity
 import jakarta.presistence.Id
 import jakarta.presistence.GeneratedValue
 import jakarta.presistence.GeneratedType
+
 @Entity
 public class StudentProfile{
     @Id
@@ -19,7 +20,12 @@ public class StudentProfile{
 
     private String department;
     
-    private int yearLevel;
+    private Integer yearLevel;
+
+    private Boolean active=true;
+    
+    private LocalDateTime createdAt=LocalDateTime.now();
+    
 
     
 }
