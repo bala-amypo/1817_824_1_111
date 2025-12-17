@@ -107,6 +107,16 @@ public class HabitProfile {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    public HabitProfile(Long id,Long studentId,Integer studyHoursPerDay,Strin)
+    public HabitProfile(Long id,Long studentId,Integer studyHoursPerDay,SleepSchedule sleepSchedule,Level cleanlinessLevel,Level noiseTolerance,SocialPreference socialPreference,LocalDateTime updatedAt){
+        this.id=id;
+        this.studentId=studentId;
+        this.sleepSchedule=sleepSchedule;
+        this.studyHoursPerDay=studyHoursPerDay;
+        this.cleanlinessLevel=cleanlinessLevel;
+        this.noiseTolerance=noiseTolerance;
+        this.socialPreference=socialPreference;
+        this.updatedAt=updatedAt;
+    }
+    piu
 
 }
