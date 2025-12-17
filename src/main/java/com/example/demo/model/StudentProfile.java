@@ -1,8 +1,10 @@
 package com.example.demo.model;
-import jakarta.presistence.Entity;
-import jakarta.presistence.Id;
-import jakarta.presistence.GeneratedValue;
-import jakarta.presistence.GenerationType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import java.time.LocalDateTime;
 
 @Entity
 public class StudentProfile{
@@ -24,7 +26,7 @@ public class StudentProfile{
 
     private Boolean active=true;
     
-    private LocalDateTime createdAt=LocalDateTime.now();
+    private LocalDateTime createdAt;
     
     public Long getId() {
         return id;
@@ -86,7 +88,7 @@ public class StudentProfile{
         this.active=active;
         this.createdAt=createdAt;
     }
-    public StudentProfile{
+    public StudentProfile(){
 
     }
 }
