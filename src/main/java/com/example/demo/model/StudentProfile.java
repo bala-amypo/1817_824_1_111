@@ -3,6 +3,7 @@ import jakarta.presistence.Entity
 import jakarta.presistence.Id
 import jakarta.presistence.GeneratedValue
 import jakarta.presistence.GeneratedType
+import jakarta.presistence.Column
 
 @Entity
 public class StudentProfile{
@@ -10,12 +11,12 @@ public class StudentProfile{
     @GeneratedValue(strategy =GeneratedType.Identity)
     private Long id;
     
-    @column(unique=true)
+    @Column(unique=true)
     private String studentId;
 
     private String  fullName;
 
-    @column(unique=true)
+    @Column(unique=true)
     private String email;
 
     private String department;
