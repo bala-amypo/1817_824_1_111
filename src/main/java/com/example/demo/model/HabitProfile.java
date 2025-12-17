@@ -31,34 +31,17 @@ public class HabitProfile {
     private SocialPreference socialPreference;
 
     private LocalDateTime updatedAt;
-    
 
-
-
-    /**
-     * @return Long return the id
-     */
     public Long getId() {
         return id;
     }
-
-    /**
-     * @param id the id to set
-     */
     public void setId(Long id) {
         this.id = id;
     }
-
-    /**
-     * @return Long return the studentId
-     */
     public Long getStudentId() {
         return studentId;
     }
 
-    /**
-     * @param studentId the studentId to set
-     */
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
