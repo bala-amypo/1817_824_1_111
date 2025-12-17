@@ -46,7 +46,8 @@ public class HabitProfile {
     
     public enum SocialPreference{
         INTROVERT,
-        BALANCED
+        BALANCED,
+        EXTROVERT
     }
 
     private LocalDateTime updatedAt;
