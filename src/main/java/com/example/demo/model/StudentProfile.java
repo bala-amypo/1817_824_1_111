@@ -34,19 +34,15 @@ public class StudentProfile{
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getStudentId() {
         return studentId;
     }
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
-
-  
     public String getFullName() {
         return fullName;
     }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
@@ -81,5 +77,8 @@ public class StudentProfile{
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+    public StudentProfile(Long id,String studentId,String fullName,String email,String department,Integer yearLevel,Boolean active,LocalDateTime createdAt){
+        this.id=id;
+        this.studentId=studentId
+    }
 }
