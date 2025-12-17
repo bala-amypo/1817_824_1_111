@@ -44,6 +44,10 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
     
+    private enum SocialPreference{
+        INTROVERT;
+        BALANCED;
+    }
 
     private LocalDateTime updatedAt;
 
@@ -103,5 +107,6 @@ public class HabitProfile {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+    public HabitProfile(Long id,Long studentId,Integer studyHoursPerDay,Strin)
 
 }
