@@ -39,13 +39,11 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private Level noiseTolerance;
 
-    private enum Level{
-        
-    }
+    
 
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
-
+    
 
     private LocalDateTime updatedAt;
 
