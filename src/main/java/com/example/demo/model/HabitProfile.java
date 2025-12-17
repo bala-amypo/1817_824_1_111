@@ -1,4 +1,4 @@
-package com.example.collectiondb.entity;
+package com.example.collectiondb.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
