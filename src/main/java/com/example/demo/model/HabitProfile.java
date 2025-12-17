@@ -19,16 +19,33 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SleepSchedule sleepSchedule;
 
+    private enum SleepSchedule{
+        EARLY;
+        REGULAR;
+        LATE;
+    }
+
     private Integer studyHoursPerDay;
 
     @Enumerated(EnumType.STRING)
     private Level cleanlinessLevel;
+   
+    private enum Level{
+        LOW;
+        MEDIUM;
+        HIGH;
+    }
 
     @Enumerated(EnumType.STRING)
     private Level noiseTolerance;
 
+    private enum Level{
+        
+    }
+
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
+
 
     private LocalDateTime updatedAt;
 
@@ -45,24 +62,14 @@ public class HabitProfile {
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
-
-    /**
-     * @return SleepSchedule return the sleepSchedule
-     */
     public SleepSchedule getSleepSchedule() {
         return sleepSchedule;
     }
 
-    /**
-     * @param sleepSchedule the sleepSchedule to set
-     */
     public void setSleepSchedule(SleepSchedule sleepSchedule) {
         this.sleepSchedule = sleepSchedule;
     }
 
-    /**
-     * @return Integer return the studyHoursPerDay
-     */
     public Integer getStudyHoursPerDay() {
         return studyHoursPerDay;
     }
