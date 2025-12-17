@@ -6,5 +6,20 @@ import jakarta.presistence.GeneratedType
 @Entity
 public class StudentProfile{
     @Id
-    @GeneratedValue(star)
+    @GeneratedValue(strategy =GeneratedType.Identity)
+    private Long id;
+    
+    @column(unique=true)
+    private String studentId;
+
+    private String  fullName;
+
+    @column(unique=true)
+    private String email;
+
+    private String department;
+    
+    private int yearLevel;
+
+    
 }
