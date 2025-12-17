@@ -79,6 +79,15 @@ public class StudentProfile{
     }
     public StudentProfile(Long id,String studentId,String fullName,String email,String department,Integer yearLevel,Boolean active,LocalDateTime createdAt){
         this.id=id;
-        this.studentId=studentId
+        this.studentId=studentId;
+        this.fullName=fullName;
+        this.email=email;
+        this.department=department;
+        this.yearLevel=yearLevel;
+        this.active=active;
+        this.createdAt=createdAt;
+    }
+    public StudentProfile{
+        
     }
 }
