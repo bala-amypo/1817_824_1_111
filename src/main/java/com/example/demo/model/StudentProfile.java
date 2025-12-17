@@ -5,5 +5,6 @@ import jakarta.presistence.GeneratedValue
 import jakarta.presistence.GeneratedType
 @Entity
 public class StudentProfile{
-    
+    @Id
+    @GeneratedValue(star)
 }
