@@ -1,8 +1,6 @@
 package com.example.collectiondb.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,54 +8,52 @@ import java.time.LocalDateTime;
 
 @Entity
 public class HabitProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long studentId;
 
-    @Enumerated(EnumType.STRING)
-    private SleepSchedule sleepSchedule;
-
-    public enum SleepSchedule{
-        EARLY,
-        REGULAR,
-        LATE
-    }
+    private String sleepSchedule;
 
     private Integer studyHoursPerDay;
 
-    @Enumerated(EnumType.STRING)
-    private Level cleanlinessLevel;
-   
-    public enum Level{
-        LOW,
-        MEDIUM,
-        HIGH
-    }
+    private String cleanlinessLevel;
 
-    @Enumerated(EnumType.STRING)
-    private Level noiseTolerance;
+    private String noiseTolerance;
 
-    
-
-    @Enumerated(EnumType.STRING)
-    private SocialPreference socialPreference;
-    
-    public enum SocialPreference{
-        INTROVERT,
-        BALANCED,
-        EXTROVERT
-    }
+    private String socialPreference;
 
     private LocalDateTime updatedAt;
 
+    public HabitProfile() {}
+
+    public HabitProfile(Long id,
+                        Long studentId,
+                        Integer studyHoursPerDay,
+                        String sleepSchedule,
+                        String cleanlinessLevel,
+                        String noiseTolerance,
+                        String socialPreference,
+                        LocalDateTime updatedAt) {
+        this.id = id;
+        this.studentId = studentId;
+        this.studyHoursPerDay = studyHoursPerDay;
+        this.sleepSchedule = sleepSchedule;
+        this.cleanlinessLevel = cleanlinessLevel;
+        this.noiseTolerance = noiseTolerance;
+        this.socialPreference = socialPreference;
+        this.updatedAt = updatedAt;
+    }
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public Long getStudentId() {
         return studentId;
     }
@@ -65,11 +61,12 @@ public class HabitProfile {
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
-    public SleepSchedule getSleepSchedule() {
+
+    public String getSleepSchedule() {
         return sleepSchedule;
     }
 
-    public void setSleepSchedule(SleepSchedule sleepSchedule) {
+    public void setSleepSchedule(String sleepSchedule) {
         this.sleepSchedule = sleepSchedule;
     }
 
@@ -80,24 +77,28 @@ public class HabitProfile {
     public void setStudyHoursPerDay(Integer studyHoursPerDay) {
         this.studyHoursPerDay = studyHoursPerDay;
     }
-    public Level getCleanlinessLevel() {
+
+    public String getCleanlinessLevel() {
         return cleanlinessLevel;
     }
-    public void setCleanlinessLevel(Level cleanlinessLevel) {
+
+    public void setCleanlinessLevel(String cleanlinessLevel) {
         this.cleanlinessLevel = cleanlinessLevel;
     }
-    public Level getNoiseTolerance() {
+
+    public String getNoiseTolerance() {
         return noiseTolerance;
     }
 
-    public void setNoiseTolerance(Level noiseTolerance) {
+    public void setNoiseTolerance(String noiseTolerance) {
         this.noiseTolerance = noiseTolerance;
     }
-    public SocialPreference getSocialPreference() {
+
+    public String getSocialPreference() {
         return socialPreference;
     }
 
-    public void setSocialPreference(SocialPreference socialPreference) {
+    public void setSocialPreference(String socialPreference) {
         this.socialPreference = socialPreference;
     }
 
@@ -108,18 +109,4 @@ public class HabitProfile {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    public HabitProfile(Long id,Long studentId,Integer studyHoursPerDay,SleepSchedule sleepSchedule,Level cleanlinessLevel,Level noiseTolerance,SocialPreference socialPreference,LocalDateTime updatedAt){
-        this.id=id;
-        this.studentId=studentId;
-        this.sleepSchedule=sleepSchedule;
-        this.studyHoursPerDay=studyHoursPerDay;
-        this.cleanlinessLevel=cleanlinessLevel;
-        this.noiseTolerance=noiseTolerance;
-        this.socialPreference=socialPreference;
-        this.updatedAt=updatedAt;
-    }
-    public HabitProfile(){
-
-    }
-
 }
