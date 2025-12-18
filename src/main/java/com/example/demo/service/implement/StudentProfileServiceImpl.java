@@ -39,7 +39,7 @@ public class StudentProfileServiceImpl
     }
 
     @Override
-    public StudentProfile findByStudentId(Long studentId) {
+    public StudentProfile findByStudentId(String studentId) {
         return repo.findByStudentId(studentId)
                 .orElseThrow(() ->
                     new IllegalArgumentException("not found"));
