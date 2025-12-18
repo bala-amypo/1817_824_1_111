@@ -4,7 +4,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
-
+import java.time.LocalDateTime;
 @Entity
 public class CompatibilityScoreRecord {
 
@@ -15,7 +15,7 @@ public class CompatibilityScoreRecord {
     private Long studentAId;
     private Long studentBId;
     private Double score;
-    private String compatibilityLevel; // LOW / MEDIUM / HIGH / EXCELLENT
+    private String compatibilityLevel; 
     private LocalDateTime computedAt;
 
     @Column(columnDefinition = "TEXT")
