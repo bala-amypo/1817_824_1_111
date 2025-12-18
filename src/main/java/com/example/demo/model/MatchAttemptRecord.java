@@ -1,5 +1,12 @@
+package com.example.demo.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import java.time.LocalDateTime;
 @Entity
-@Table(name = "match_attempt")
+
 public class MatchAttemptRecord {
 
     @Id
@@ -9,7 +16,7 @@ public class MatchAttemptRecord {
     private Long initiatorStudentId;
     private Long candidateStudentId;
     private Long resultScoreId;
-    private String status; // MATCHED / NOT_COMPATIBLE / PENDING_REVIEW
+    private String status;
     private LocalDateTime attemptedAt;
 
     public MatchAttemptRecord() {}
