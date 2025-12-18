@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
 import java.time.LocalDateTime;
+import jakarta.persistence.EnumType;
 @Entity
 
 public class RoomAssignmentRecord {
@@ -54,5 +55,5 @@ public class RoomAssignmentRecord {
     public void setAssignedAt(LocalDateTime assignedAt) { this.assignedAt = assignedAt; }
 
     public Status getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(Status status) { this.status = status; }
 }

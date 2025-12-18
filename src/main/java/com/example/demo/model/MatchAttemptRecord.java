@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
+import 
 import java.time.LocalDateTime;
 @Entity
 
@@ -16,6 +16,7 @@ public class MatchAttemptRecord {
     private Long initiatorStudentId;
     private Long candidateStudentId;
     private Long resultScoreId;
+    @Enumerated(EnumType.STRING)
     private String status;
     private LocalDateTime attemptedAt;
 
