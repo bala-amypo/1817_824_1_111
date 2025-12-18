@@ -3,7 +3,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import 
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import java.time.LocalDateTime;
 @Entity
 
@@ -17,14 +18,19 @@ public class MatchAttemptRecord {
     private Long candidateStudentId;
     private Long resultScoreId;
     @Enumerated(EnumType.STRING)
-    private String status;
+    private Status status;
+    public enum Status{
+          MATCHED,
+          NOT_COMPATIBLE,
+          PENDING_REVIEW
+    }
     private LocalDateTime attemptedAt;
 
     public MatchAttemptRecord() {}
 
     public MatchAttemptRecord(Long id, Long initiatorStudentId,
                               Long candidateStudentId, Long resultScoreId,
-                              String status, LocalDateTime attemptedAt) {
+                              Status status, LocalDateTime attemptedAt) {
         this.id = id;
         this.initiatorStudentId = initiatorStudentId;
         this.candidateStudentId = candidateStudentId;
@@ -45,8 +51,8 @@ public class MatchAttemptRecord {
     public Long getResultScoreId() { return resultScoreId; }
     public void setResultScoreId(Long resultScoreId) { this.resultScoreId = resultScoreId; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 
     public LocalDateTime getAttemptedAt() { return attemptedAt; }
     public void setAttemptedAt(LocalDateTime attemptedAt) { this.attemptedAt = attemptedAt; }
