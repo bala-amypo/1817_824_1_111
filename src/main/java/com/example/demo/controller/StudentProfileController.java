@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.entity.StudentProfile;
-import com.example.collectiondb.services.StudentProfileService;
+import com.example.demo.model.StudentProfile;
+import com.example.demo.service.StudentProfileService;
 
 @RestController
 @RequestMapping("/api/students")
 public class StudentProfileController {
 
     @Autowired
-    private StudentProfileService ser;
+    StudentProfileService ser;
 
     @PostMapping
     public StudentProfile addStudent(@RequestBody StudentProfile profile) {
@@ -38,7 +38,7 @@ public class StudentProfileController {
     @PutMapping("/{id}/status")
     public StudentProfile updateStudentStatus(
             @PathVariable Long id,
-            @RequestParam boolean active) {
+            @RequestBody boolean active) {
         return ser.updateStudentStatus(id, active);
     }
 
