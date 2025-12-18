@@ -23,4 +23,14 @@ public class StudentProfileServiceImplement implements StudentProfileService {
     public StudentProfile findByStudentId(String studentId) {
         return rep.findByStudentId(studentId);
     }
+    public StudentProfile updateStudentStatus(Long id, boolean active) {
+    StudentProfile student = rep.findById(id).orElse(null);
+    
+    if (student == null) {
+        return null; 
+    }
+    student.setActive(active);
+    return rep.save(student);
+}
+
 }
