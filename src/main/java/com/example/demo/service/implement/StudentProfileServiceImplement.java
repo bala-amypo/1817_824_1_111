@@ -14,15 +14,18 @@ public class StudentProfileServiceImplement implements StudentProfileService {
     public StudentProfile createStudent(StudentProfile profile) {
         return rep.save(profile);
     }
+    @Override
     public StudentProfile getStudentById(Long id) {
         return rep.findById(id).orElse(null);
     }
     public List<StudentProfile> getAllStudents() {
         return rep.findAll();
     }
+    @Override
     public StudentProfile findByStudentId(String studentId) {
         return rep.findByStudentId(studentId);
     }
+    @Override
     public StudentProfile updateStudentStatus(Long id, boolean active) {
     StudentProfile student = rep.findById(id).orElse(null);
     
