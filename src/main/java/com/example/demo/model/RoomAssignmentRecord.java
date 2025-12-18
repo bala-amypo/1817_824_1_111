@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
+import jakarta.persistence.Enumerated;
 import java.time.LocalDateTime;
 @Entity
 
@@ -17,13 +17,19 @@ public class RoomAssignmentRecord {
     private Long studentAId;
     private Long studentBId;
     private LocalDateTime assignedAt;
-    private String status; 
+    @Enumerated(EnumType.STRING)
+    private Status status; 
+    public enum Status{
+        ACTIVE,
+        COMPLETED,
+        CANCELLED
+    }
 
     public RoomAssignmentRecord() {}
 
     public RoomAssignmentRecord(Long id, String roomNumber, Long studentAId,
                                 Long studentBId, LocalDateTime assignedAt,
-                                String status) {
+                                Status status) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.studentAId = studentAId;
@@ -47,6 +53,6 @@ public class RoomAssignmentRecord {
     public LocalDateTime getAssignedAt() { return assignedAt; }
     public void setAssignedAt(LocalDateTime assignedAt) { this.assignedAt = assignedAt; }
 
-    public String getStatus() { return status; }
+    public Status getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 }
