@@ -24,7 +24,7 @@ public class StudentProfileServiceImplement implements StudentProfileService {
     }
     @Override
     public StudentProfile findByStudentId(String studentId) {
-        return rep.findByStudentId(studentId);
+        return rep.findByStudentId(studentId633);
     }
     @Override
     public StudentProfile updateStudentStatus(Long id, boolean active) {
