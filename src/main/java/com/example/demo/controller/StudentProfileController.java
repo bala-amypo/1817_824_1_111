@@ -39,8 +39,13 @@ public StudentProfileController(StudentProfileService ser){
         return ser.getAllStudents();
     }
 
-   
-    }
+    @PutMapping("/{id}/status")
+public StudentProfile updateStudentStatus(
+        @PathVariable Long id,
+        @RequestParam boolean active) {
+    return ser.updateStudentStatus(id, active);
+}
+
 
     @GetMapping("/lookup/{studentId}")
     public StudentProfile getByStudentId(@PathVariable String studentId) {
