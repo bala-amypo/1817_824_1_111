@@ -38,8 +38,11 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     @Override
     public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
         MatchAttemptRecord a = attemptRepo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("not found"));
-        a.setStatus(status);
+            .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
+
+        // ✅ Convert String to Enum
+        a.setStatus(MatchAttemptRecord.Status.valueOf(status.toUpperCase()));
+
         return attemptRepo.save(a);
     }
 
