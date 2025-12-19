@@ -5,6 +5,8 @@ import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
 import java.util.List;
+import com.example.demo.exception.ResourceNotFoundException;
+
 
 @Service
 
