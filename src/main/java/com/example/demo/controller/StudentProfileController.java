@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
 
+
+@Tag(name = "Student API", description = "Operations for student profiles")
 @RestController
 @RequestMapping("/api/students")
 public class StudentProfileController {
