@@ -20,8 +20,10 @@ public class HabitProfileServiceImpl implements HabitProfileService {
 
     @Override
     public HabitProfile createOrUpdateHabit(HabitProfile habit) {
-        if (habit.getStudyHours() < 0 || habit.getStudyHours() > 24) {
-            throw new IllegalArgumentException("study hours");
+        // Use the correct getter
+        Integer studyHours = habit.getStudyHoursPerDay();
+        if (studyHours == null || studyHours < 0 || studyHours > 24) {
+            throw new IllegalArgumentException("Study hours must be between 0 and 24");
         }
         return repo.save(habit);
     }
@@ -29,13 +31,13 @@ public class HabitProfileServiceImpl implements HabitProfileService {
     @Override
     public HabitProfile getHabitByStudent(Long studentId) {
         return repo.findByStudentId(studentId)
-            .orElseThrow(() -> new ResourceNotFoundException("not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
     }
 
     @Override
     public HabitProfile getHabitById(Long id) {
         return repo.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
     }
 
     @Override
