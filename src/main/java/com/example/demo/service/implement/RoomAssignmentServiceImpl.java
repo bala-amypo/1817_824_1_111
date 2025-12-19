@@ -21,8 +21,8 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     }
 
     @Override
-    public RoomAssignmentRecord assignRoom(RoomAssignmentRecord assignment) {
-        return repo.save(assignment);
+    public RoomAssignmentRecord assignRoom(RoomAssignmentRecord record) {
+        return repo.save(record);
     }
 
     @Override
@@ -32,20 +32,19 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     }
 
     @Override
-    public List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId) {
+    public List<RoomAssignmentRecord> getAssignmentsForStudent(Long studentId) {
         return repo.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
-    public List<RoomAssignmentRecord> getAllAssignments() {
+    public List<RoomAssignmentRecord> getAllRoomAssignments() {
         return repo.findAll();
     }
 
     @Override
-    public RoomAssignmentRecord updateStatus(Long id, String status) {
+    public RoomAssignmentRecord updateRoomStatus(Long id, String status) {
         RoomAssignmentRecord r = repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Room assignment not found"));
-
         r.setStatus(RoomAssignmentRecord.Status.valueOf(status.toUpperCase()));
         return repo.save(r);
     }
