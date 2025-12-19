@@ -1,6 +1,6 @@
 package com.example.project.repository;
 
-import com.example.project.entity.CompatibilityScoreRecord;
+import com.example.project.model.CompatibilityScoreRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
