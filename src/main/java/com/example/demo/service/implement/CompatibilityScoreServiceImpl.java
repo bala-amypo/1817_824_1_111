@@ -1,4 +1,4 @@
-package com.example.demo.service.implement;
+package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.CompatibilityScoreRecord;
@@ -29,31 +29,33 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     public CompatibilityScoreRecord computeScore(Long id1, Long id2) {
 
         if (id1.equals(id2)) {
-            throw new IllegalArgumentException("same student");
+            throw new IllegalArgumentException("Same student IDs provided");
         }
 
+        // Check if score already exists
         List<CompatibilityScoreRecord> existing =
                 scoreRepo.findByStudentAIdOrStudentBId(id1, id1);
 
         for (CompatibilityScoreRecord r : existing) {
-            if (
-                (r.getStudentAId().equals(id1) && r.getStudentBId().equals(id2)) ||
-                (r.getStudentAId().equals(id2) && r.getStudentBId().equals(id1))
-            ) {
-                return r;
+            if ((r.getStudentAId().equals(id1) && r.getStudentBId().equals(id2)) ||
+                (r.getStudentAId().equals(id2) && r.getStudentBId().equals(id1))) {
+                return r; // Return existing score
             }
         }
 
+        // Fetch habit profiles
         HabitProfile h1 = habitRepo.findByStudentId(id1)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id1));
 
         HabitProfile h2 = habitRepo.findByStudentId(id2)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id2));
 
+        // ✅ Compute compatibility score
         Double score = Math.abs(
-                h1.getStudyHoursPerDay() - h2.getStudyHoursPerDay()
-        ).doubleValue();
+                h1.getStudyHoursPerDay().doubleValue() - h2.getStudyHoursPerDay().doubleValue()
+        );
 
+        // Save new CompatibilityScoreRecord
         CompatibilityScoreRecord record = new CompatibilityScoreRecord();
         record.setStudentAId(id1);
         record.setStudentBId(id2);
@@ -65,7 +67,7 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     @Override
     public CompatibilityScoreRecord getScoreById(Long id) {
         return scoreRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Score not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Compatibility score not found with ID " + id));
     }
 
     @Override
