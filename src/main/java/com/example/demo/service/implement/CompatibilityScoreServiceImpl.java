@@ -1,11 +1,11 @@
-package com.example.project.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.project.model.CompatibilityScoreRecord;
-import com.example.project.model.HabitProfile;
-import com.example.project.exception.ResourceNotFoundException;
-import com.example.project.repository.CompatibilityScoreRecordRepository;
-import com.example.project.repository.HabitProfileRepository;
-import com.example.project.service.CompatibilityScoreService;
+import com.example.demo.model.CompatibilityScoreRecord;
+import com.example.demo.model.HabitProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.CompatibilityScoreRecordRepository;
+import com.example.demo.repository.HabitProfileRepository;
+import com.example.demo.service.CompatibilityScoreService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
