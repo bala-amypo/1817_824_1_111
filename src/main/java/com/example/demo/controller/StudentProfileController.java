@@ -17,8 +17,12 @@ import com.example.demo.service.StudentProfileService;
 @RequestMapping("/api/students")
 public class StudentProfileController {
 
-    @Autowired
-    StudentProfileService ser;
+    private final StudentProfileService ser;
+
+public StudentProfileController(StudentProfileService ser){
+    this.ser = ser;
+}
+
 
     @PostMapping
     public StudentProfile addStudent(@RequestBody StudentProfile profile) {
@@ -35,11 +39,7 @@ public class StudentProfileController {
         return ser.getAllStudents();
     }
 
-    @PutMapping("/{id}/status")
-    public StudentProfile updateStudentStatus(
-            @PathVariable Long id,
-            @RequestBody boolean active) {
-        return ser.updateStudentStatus(id, active);
+   
     }
 
     @GetMapping("/lookup/{studentId}")
