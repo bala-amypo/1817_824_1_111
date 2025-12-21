@@ -66,7 +66,7 @@ public class StudentProfile{
         this.yearLevel = yearLevel;
     }
 
-    public Boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
     public void setActive(Boolean active) {
