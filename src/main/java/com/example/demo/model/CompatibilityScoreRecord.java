@@ -44,8 +44,6 @@ public class CompatibilityScoreRecord {
         this.computedAt = computedAt;
         this.detailsJson = detailsJson;
     }
-
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
