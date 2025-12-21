@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.service.CompatibilityScoreService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -15,8 +16,11 @@ public class CompatibilityScoreController {
         this.service = service;
     }
 
-    @PostMapping("/compute/{a}/{b}")
-    public CompatibilityScoreRecord compute(@PathVariable Long a, @PathVariable Long b) {
+    // ✅ GET instead of POST (Swagger-friendly)
+    @GetMapping("/compute/{a}/{b}")
+    public CompatibilityScoreRecord compute(
+            @PathVariable Long a,
+            @PathVariable Long b) {
         return service.computeScore(a, b);
     }
 
@@ -26,7 +30,8 @@ public class CompatibilityScoreController {
     }
 
     @GetMapping("/student/{studentId}")
-    public List<CompatibilityScoreRecord> byStudent(@PathVariable Long studentId) {
+    public List<CompatibilityScoreRecord> byStudent(
+            @PathVariable Long studentId) {
         return service.getScoresForStudent(studentId);
     }
 
