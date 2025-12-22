@@ -10,7 +10,6 @@ import java.util.List;
 public class CompatibilityScoreController {
 
     private final CompatibilityScoreService service;
-
     public CompatibilityScoreController(CompatibilityScoreService service) {
         this.service = service;
     }
