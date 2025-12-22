@@ -1,3 +1,85 @@
+// package com.example.demo.service.impl;
+
+// import com.example.demo.exception.ResourceNotFoundException;
+// import com.example.demo.model.CompatibilityScoreRecord;
+// import com.example.demo.model.HabitProfile;
+// import com.example.demo.repository.CompatibilityScoreRecordRepository;
+// import com.example.demo.repository.HabitProfileRepository;
+// import com.example.demo.service.CompatibilityScoreService;
+// import jakarta.transaction.Transactional;
+// import org.springframework.stereotype.Service;
+
+// import java.util.List;
+
+// @Service
+// @Transactional
+// public class CompatibilityScoreServiceImpl implements CompatibilityScoreService {
+
+//     private final CompatibilityScoreRecordRepository scoreRepo;
+//     private final HabitProfileRepository habitRepo;
+
+//     public CompatibilityScoreServiceImpl(
+//             CompatibilityScoreRecordRepository scoreRepo,
+//             HabitProfileRepository habitRepo) {
+//         this.scoreRepo = scoreRepo;
+//         this.habitRepo = habitRepo;
+//     }
+
+//     @Override
+//     public CompatibilityScoreRecord computeScore(Long id1, Long id2) {
+
+//         if (id1.equals(id2)) {
+//             throw new IllegalArgumentException("Same student IDs provided");
+//         }
+
+//         // Check if score already exists
+//         List<CompatibilityScoreRecord> existing =
+//                 scoreRepo.findByStudentAIdOrStudentBId(id1, id2);
+
+//         for (CompatibilityScoreRecord r : existing) {
+//             if ((r.getStudentAId().equals(id1) && r.getStudentBId().equals(id2)) ||
+//                 (r.getStudentAId().equals(id2) && r.getStudentBId().equals(id1))) {
+//                 return r; // Return existing score
+//             }
+//         }
+
+//         // Fetch habit profiles
+//         HabitProfile h1 = habitRepo.findByStudentId(id1)
+//                 .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id1));
+
+//         HabitProfile h2 = habitRepo.findByStudentId(id2)
+//                 .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id2));
+
+//         // ✅ Compute compatibility score
+//         Double score = Math.abs(
+//                 h1.getStudyHoursPerDay().doubleValue() - h2.getStudyHoursPerDay().doubleValue()
+//         );
+
+//         // Save new CompatibilityScoreRecord
+//         CompatibilityScoreRecord record = new CompatibilityScoreRecord();
+//         record.setStudentAId(id1);
+//         record.setStudentBId(id2);
+//         record.setScore(score);
+
+//         return scoreRepo.save(record);
+//     }
+
+//     @Override
+//     public CompatibilityScoreRecord getScoreById(Long id) {
+//         return scoreRepo.findById(id)
+//                 .orElseThrow(() -> new ResourceNotFoundException("Compatibility score not found with ID " + id));
+//     }
+
+//     @Override
+//     public List<CompatibilityScoreRecord> getScoresForStudent(Long studentId) {
+//         return scoreRepo.findByStudentAIdOrStudentBId(studentId, studentId);
+//     }
+
+//     @Override
+//     public List<CompatibilityScoreRecord> getAllScores() {
+//         return scoreRepo.findAll();
+//     }
+// }
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
@@ -9,6 +91,7 @@ import com.example.demo.service.CompatibilityScoreService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,6 +101,7 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     private final CompatibilityScoreRecordRepository scoreRepo;
     private final HabitProfileRepository habitRepo;
 
+    // ✅ Constructor Injection (MANDATORY)
     public CompatibilityScoreServiceImpl(
             CompatibilityScoreRecordRepository scoreRepo,
             HabitProfileRepository habitRepo) {
@@ -26,48 +110,88 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     }
 
     @Override
-    public CompatibilityScoreRecord computeScore(Long id1, Long id2) {
+    public CompatibilityScoreRecord computeScore(Long studentAId, Long studentBId) {
 
-        if (id1.equals(id2)) {
-            throw new IllegalArgumentException("Same student IDs provided");
+        // 1️⃣ Prevent self matching
+        if (studentAId.equals(studentBId)) {
+            throw new IllegalArgumentException("same student");
         }
 
-        // Check if score already exists
-        List<CompatibilityScoreRecord> existing =
-                scoreRepo.findByStudentAIdOrStudentBId(id1, id2);
+        // 2️⃣ Return existing compatibility if already computed
+        return scoreRepo.findByStudentAIdAndStudentBId(studentAId, studentBId)
+                .orElseGet(() -> {
 
-        for (CompatibilityScoreRecord r : existing) {
-            if ((r.getStudentAId().equals(id1) && r.getStudentBId().equals(id2)) ||
-                (r.getStudentAId().equals(id2) && r.getStudentBId().equals(id1))) {
-                return r; // Return existing score
-            }
-        }
+                    // 3️⃣ Fetch habit profiles
+                    HabitProfile h1 = habitRepo.findByStudentId(studentAId)
+                            .orElseThrow(() -> new ResourceNotFoundException("not found"));
 
-        // Fetch habit profiles
-        HabitProfile h1 = habitRepo.findByStudentId(id1)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id1));
+                    HabitProfile h2 = habitRepo.findByStudentId(studentBId)
+                            .orElseThrow(() -> new ResourceNotFoundException("not found"));
 
-        HabitProfile h2 = habitRepo.findByStudentId(id2)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found for student " + id2));
+                    // 4️⃣ Compute compatibility score (MAX = 100)
+                    int score = 0;
 
-        // ✅ Compute compatibility score
-        Double score = Math.abs(
-                h1.getStudyHoursPerDay().doubleValue() - h2.getStudyHoursPerDay().doubleValue()
-        );
+                    if (h1.getSleepSchedule() == h2.getSleepSchedule()) {
+                        score += 20;
+                    }
 
-        // Save new CompatibilityScoreRecord
-        CompatibilityScoreRecord record = new CompatibilityScoreRecord();
-        record.setStudentAId(id1);
-        record.setStudentBId(id2);
-        record.setScore(score);
+                    if (Math.abs(
+                            h1.getStudyHoursPerDay() - h2.getStudyHoursPerDay()) <= 1) {
+                        score += 20;
+                    }
 
-        return scoreRepo.save(record);
+                    if (h1.getCleanlinessLevel() == h2.getCleanlinessLevel()) {
+                        score += 20;
+                    }
+
+                    if (h1.getNoiseTolerance() == h2.getNoiseTolerance()) {
+                        score += 20;
+                    }
+
+                    if (h1.getSocialPreference() == h2.getSocialPreference()) {
+                        score += 20;
+                    }
+
+                    // 5️⃣ Determine compatibility level
+                    String level;
+                    if (score >= 80) {
+                        level = "EXCELLENT";
+                    } else if (score >= 60) {
+                        level = "HIGH";
+                    } else if (score >= 40) {
+                        level = "MEDIUM";
+                    } else {
+                        level = "LOW";
+                    }
+
+                    // 6️⃣ Build details JSON
+                    String detailsJson = String.format(
+                            "{\"sleep\":\"%s\",\"studyHours\":\"%s\",\"cleanliness\":\"%s\",\"noise\":\"%s\",\"social\":\"%s\"}",
+                            h1.getSleepSchedule() == h2.getSleepSchedule() ? "match" : "mismatch",
+                            Math.abs(h1.getStudyHoursPerDay() - h2.getStudyHoursPerDay()) <= 1 ? "close" : "far",
+                            h1.getCleanlinessLevel() == h2.getCleanlinessLevel() ? "match" : "mismatch",
+                            h1.getNoiseTolerance() == h2.getNoiseTolerance() ? "match" : "mismatch",
+                            h1.getSocialPreference() == h2.getSocialPreference() ? "match" : "mismatch"
+                    );
+
+                    // 7️⃣ Save compatibility record
+                    CompatibilityScoreRecord record = new CompatibilityScoreRecord();
+                    record.setStudentAId(studentAId);
+                    record.setStudentBId(studentBId);
+                    record.setScore((double) score);
+                    record.setCompatibilityLevel(level);
+                    record.setComputedAt(LocalDateTime.now());
+                    record.setDetailsJson(detailsJson);
+
+                    return scoreRepo.save(record);
+                });
     }
 
     @Override
     public CompatibilityScoreRecord getScoreById(Long id) {
         return scoreRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Compatibility score not found with ID " + id));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("not found"));
     }
 
     @Override
