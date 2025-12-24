@@ -1,13 +1,9 @@
 package com.example.demo.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import java.time.LocalDateTime;
-import jakarta.persistence.EnumType;
-@Entity
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "room_assignments")
 public class RoomAssignmentRecord {
 
     @Id
@@ -15,45 +11,57 @@ public class RoomAssignmentRecord {
     private Long id;
 
     private String roomNumber;
+
     private Long studentAId;
     private Long studentBId;
-    private LocalDateTime assignedAt;
+
     @Enumerated(EnumType.STRING)
-    private Status status; 
-    public enum Status{
+    private Status status;
+
+    public enum Status {
         ACTIVE,
-        COMPLETED,
-        CANCELLED
+        COMPLETED
     }
 
-    public RoomAssignmentRecord() {}
+    // ---------- Getters & Setters ----------
 
-    public RoomAssignmentRecord(Long id, String roomNumber, Long studentAId,
-                                Long studentBId, LocalDateTime assignedAt,
-                                Status status) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public Long getStudentAId() {
+        return studentAId;
+    }
+
+    public void setStudentAId(Long studentAId) {
         this.studentAId = studentAId;
+    }
+
+    public Long getStudentBId() {
+        return studentBId;
+    }
+
+    public void setStudentBId(Long studentBId) {
         this.studentBId = studentBId;
-        this.assignedAt = assignedAt;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
         this.status = status;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getRoomNumber() { return roomNumber; }
-    public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
-
-    public Long getStudentAId() { return studentAId; }
-    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
-
-    public Long getStudentBId() { return studentBId; }
-    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
-
-    public LocalDateTime getAssignedAt() { return assignedAt; }
-    public void setAssignedAt(LocalDateTime assignedAt) { this.assignedAt = assignedAt; }
-
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
 }
