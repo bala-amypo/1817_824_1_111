@@ -10,11 +10,22 @@
 //     RoomAssignmentRecord getAssignmentById(Long id);
 //     List<RoomAssignmentRecord> getAllRoomAssignments();
 // }
+// package com.example.demo.service;
+
+// import com.example.demo.model.RoomAssignmentRecord;
+
+// public interface RoomAssignmentService {
+
+//     RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
+// }
 package com.example.demo.service;
 
 import com.example.demo.model.RoomAssignmentRecord;
+import java.util.List;
 
 public interface RoomAssignmentService {
-
-    RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
+    RoomAssignmentRecord assignRoom(Long studentId, Long roomId);
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
+    List<RoomAssignmentRecord> getAllAssignments();
 }
+

@@ -58,12 +58,55 @@
 // }
 
 
+// package com.example.demo.service.impl;
+
+// import com.example.demo.model.StudentProfile;
+// import com.example.demo.repository.StudentProfileRepository;
+// import com.example.demo.service.StudentProfileService;
+// import com.example.demo.exception.ResourceNotFoundException;
+// import jakarta.transaction.Transactional;
+// import org.springframework.stereotype.Service;
+
+// import java.util.List;
+
+// @Service
+// @Transactional
+// public class StudentProfileServiceImpl implements StudentProfileService {
+
+//     private final StudentProfileRepository repository;
+
+//     public StudentProfileServiceImpl(StudentProfileRepository repository) {
+//         this.repository = repository;
+//     }
+
+//     @Override
+//     public StudentProfile createStudent(StudentProfile studentProfile) {
+//         return repository.save(studentProfile);
+//     }
+
+//     @Override
+//     public StudentProfile getStudentById(Long id) {
+//         return repository.findById(id)
+//                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+//     }
+
+//     @Override
+//     public StudentProfile getStudentByStudentId(String studentId) {
+//         return repository.findByStudentId(studentId)
+//                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+//     }
+
+//     @Override
+//     public List<StudentProfile> getAllStudents() {
+//         return repository.findAll();
+//     }
+// }
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.StudentProfileService;
-import com.example.demo.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -99,5 +142,14 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     @Override
     public List<StudentProfile> getAllStudents() {
         return repository.findAll();
+    }
+
+    @Override
+    public StudentProfile updateStatus(Long id, String status) {
+        StudentProfile student = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+
+        student.setStatus(status); // Assuming StudentProfile has a `status` field
+        return repository.save(student);
     }
 }
