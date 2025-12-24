@@ -49,48 +49,29 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.HabitProfile;
 import com.example.demo.repository.HabitProfileRepository;
+import com.example.demo.service.HabitProfileService;
+import com.example.demo.service.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class HabitProfileServiceImpl {
+@Transactional
+public class HabitProfileServiceImpl implements HabitProfileService {
 
-    private final HabitProfileRepository repo;
+    private final HabitProfileRepository repository;
 
-    public HabitProfileServiceImpl(HabitProfileRepository repo) {
-        this.repo = repo;
+    public HabitProfileServiceImpl(HabitProfileRepository repository) {
+        this.repository = repository;
     }
 
-    public HabitProfile createOrUpdateHabit(HabitProfile h) {
-
-        if (h.getStudyHoursPerDay() != null && h.getStudyHoursPerDay() < 0) {
-            throw new IllegalArgumentException("Invalid study hours");
-        }
-
-        Optional<HabitProfile> existing =
-                repo.findByStudentId(h.getStudentId());
-
-        if (existing.isPresent()) {
-            h.setId(existing.get().getId());
-        }
-
-        h.setUpdatedAt(LocalDateTime.now());
-        return repo.save(h);
+    @Override
+    public HabitProfile createHabitProfile(HabitProfile habitProfile) {
+        return repository.save(habitProfile);
     }
 
-    public HabitProfile getHabitByStudent(Long sid) {
-        return repo.findByStudentId(sid)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
-    }
-
-    public Optional<HabitProfile> getHabitById(Long id) {
-        return repo.findById(id);
-    }
-
-    public List<HabitProfile> getAllHabitProfiles() {
-        return repo.findAll();
+    @Override
+    public HabitProfile getHabitProfileByStudentId(Long studentId) {
+        return repository.findByStudentId(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
     }
 }

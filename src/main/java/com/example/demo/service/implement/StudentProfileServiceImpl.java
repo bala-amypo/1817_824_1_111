@@ -60,50 +60,42 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
+import com.example.demo.service.StudentProfileService;
+import com.example.demo.service.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class StudentProfileServiceImpl {
+@Transactional
+public class StudentProfileServiceImpl implements StudentProfileService {
 
-    private final StudentProfileRepository repo;
+    private final StudentProfileRepository repository;
 
-    public StudentProfileServiceImpl(StudentProfileRepository repo) {
-        this.repo = repo;
+    public StudentProfileServiceImpl(StudentProfileRepository repository) {
+        this.repository = repository;
     }
 
-    public StudentProfile createStudent(StudentProfile s) {
-
-        if (repo.findByStudentId(s.getStudentId()).isPresent()) {
-            throw new IllegalArgumentException("studentId exists");
-        }
-
-        if (repo.findByEmail(s.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("email exists");
-        }
-
-        return repo.save(s);
+    @Override
+    public StudentProfile createStudent(StudentProfile studentProfile) {
+        return repository.save(studentProfile);
     }
 
+    @Override
     public StudentProfile getStudentById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
-    public StudentProfile updateStudentStatus(Long id, boolean active) {
-        StudentProfile s = getStudentById(id);
-        s.setActive(active);
-        return repo.save(s);
+    @Override
+    public StudentProfile getStudentByStudentId(String studentId) {
+        return repository.findByStudentId(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
+    @Override
     public List<StudentProfile> getAllStudents() {
-        return repo.findAll();
-    }
-
-    public Optional<StudentProfile> findByStudentId(String sid) {
-        return repo.findByStudentId(sid);
+        return repository.findAll();
     }
 }
-
