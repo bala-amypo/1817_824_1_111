@@ -13,7 +13,15 @@ package com.example.demo.service;
 
 import com.example.demo.model.MatchAttemptRecord;
 
+import java.util.List;
+
 public interface MatchAttemptService {
 
     MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId);
+
+    MatchAttemptRecord updateAttemptStatus(Long id, String status);
+
+    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
+
+    List<MatchAttemptRecord> getAllMatchAttempts();
 }

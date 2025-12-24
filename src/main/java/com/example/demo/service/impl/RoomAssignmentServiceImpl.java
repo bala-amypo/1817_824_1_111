@@ -86,11 +86,13 @@
 // }
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.repository.RoomAssignmentRecordRepository;
 import com.example.demo.service.RoomAssignmentService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -104,20 +106,35 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     }
 
     @Override
-    public RoomAssignmentRecord assignRoom(Long studentId, Long roomId) {
+    public RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId) {
         RoomAssignmentRecord record = new RoomAssignmentRecord();
-        record.setStudentId(studentId);
-        record.setRoomId(roomId);
+        record.setStudentAId(studentAId);
+        record.setStudentBId(studentBId);
+        record.setStatus("ASSIGNED");
         return repository.save(record);
     }
 
     @Override
+    public RoomAssignmentRecord getAssignmentById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Assignment not found"));
+    }
+
+    @Override
     public List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId) {
-        return repository.findByStudentId(studentId);
+        return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
     public List<RoomAssignmentRecord> getAllAssignments() {
         return repository.findAll();
+    }
+
+    @Override
+    public RoomAssignmentRecord updateStatus(Long id, String status) {
+        RoomAssignmentRecord record = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Assignment not found"));
+        record.setStatus(status.toUpperCase());
+        return repository.save(record);
     }
 }

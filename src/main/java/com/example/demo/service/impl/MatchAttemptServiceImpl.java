@@ -90,7 +90,6 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.model.MatchAttemptRecord.Status;
 import com.example.demo.repository.MatchAttemptRecordRepository;
-import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -101,44 +100,36 @@ import java.util.List;
 @Transactional
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
-    private final MatchAttemptRecordRepository attemptRepo;
-    private final CompatibilityScoreRecordRepository scoreRepo;
+    private final MatchAttemptRecordRepository repository;
 
-    public MatchAttemptServiceImpl(
-            MatchAttemptRecordRepository attemptRepo,
-            CompatibilityScoreRecordRepository scoreRepo) {
-        this.attemptRepo = attemptRepo;
-        this.scoreRepo = scoreRepo;
+    public MatchAttemptServiceImpl(MatchAttemptRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public MatchAttemptRecord logMatchAttempt(Long initiatorStudentId, Long candidateStudentId) {
+    public MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId) {
         MatchAttemptRecord record = new MatchAttemptRecord();
-        record.setInitiatorStudentId(initiatorStudentId);
-        record.setCandidateStudentId(candidateStudentId);
-        record.setStatus(Status.PENDING_REVIEW); // Matches enum in your model
-
-        return attemptRepo.save(record);
-    }
-
-    @Override
-    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
-        return attemptRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
+        record.setStudentAId(studentAId);
+        record.setStudentBId(studentBId);
+        record.setStatus(Status.MATCHED);
+        return repository.save(record);
     }
 
     @Override
     public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
-        MatchAttemptRecord attempt = attemptRepo.findById(id)
+        MatchAttemptRecord record = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
+        record.setStatus(Status.valueOf(status.toUpperCase()));
+        return repository.save(record);
+    }
 
-        // Convert String to Enum safely
-        attempt.setStatus(Status.valueOf(status.toUpperCase()));
-
-        return attemptRepo.save(attempt);
+    @Override
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
+        return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
     public List<MatchAttemptRecord> getAllMatchAttempts() {
-        return attemptRepo.findAll();
+        return repository.findAll();
     }
 }
