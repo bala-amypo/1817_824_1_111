@@ -1,20 +1,47 @@
+// package com.example.demo.config;
+
+// import io.swagger.v3.oas.models.OpenAPI;
+// import io.swagger.v3.oas.models.servers.Server;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import java.util.List;
+
+// @Configuration
+// public class SwaggerConfig {
+
+//     @Bean
+//     public OpenAPI customOpenAPI() {
+//         return new OpenAPI()
+//                 // You need to change the port as per your server
+//                 .servers(List.of(
+//                         new Server().url("https://9330.408procr.amypo.ai/")
+//                 ));
+//         }
+// }
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI api() {
         return new OpenAPI()
-                // You need to change the port as per your server
+                .info(new Info()
+                        .title("Hostel Roommate Compatibility Matcher API")
+                        .description("API documentation for Hostel Roommate Compatibility system")
+                        .version("1.0"))
                 .servers(List.of(
-                        new Server().url("https://9330.408procr.amypo.ai/")
+                        new Server()
+                                .url("https://9330.408procr.amypo.ai/")
+                                .description("Production Server")
                 ));
-        }
+    }
 }
