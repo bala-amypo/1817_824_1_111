@@ -51,33 +51,94 @@
 //         return attemptRepo.findAll();
 //     }
 // }
+
+
+
+// package com.example.demo.service.impl;
+
+// import com.example.demo.model.MatchAttemptRecord;
+// import com.example.demo.model.MatchAttemptRecord.Status;
+// import com.example.demo.repository.MatchAttemptRecordRepository;
+// import com.example.demo.service.MatchAttemptService;
+// import jakarta.transaction.Transactional;
+// import org.springframework.stereotype.Service;
+
+// @Service
+// @Transactional
+// public class MatchAttemptServiceImpl implements MatchAttemptService {
+
+//     private final MatchAttemptRecordRepository repository;
+
+//     public MatchAttemptServiceImpl(MatchAttemptRecordRepository repository) {
+//         this.repository = repository;
+//     }
+
+//     @Override
+//     public MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId) {
+
+//         MatchAttemptRecord record = new MatchAttemptRecord();
+//         record.setStudentAId(studentAId);
+//         record.setStudentBId(studentBId);
+//         record.setStatus(Status.MATCHED);
+
+//         return repository.save(record);
+//     }
+// }
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.model.MatchAttemptRecord.Status;
 import com.example.demo.repository.MatchAttemptRecordRepository;
+import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
-    private final MatchAttemptRecordRepository repository;
+    private final MatchAttemptRecordRepository attemptRepo;
+    private final CompatibilityScoreRecordRepository scoreRepo;
 
-    public MatchAttemptServiceImpl(MatchAttemptRecordRepository repository) {
-        this.repository = repository;
+    public MatchAttemptServiceImpl(
+            MatchAttemptRecordRepository attemptRepo,
+            CompatibilityScoreRecordRepository scoreRepo) {
+        this.attemptRepo = attemptRepo;
+        this.scoreRepo = scoreRepo;
     }
 
     @Override
-    public MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId) {
-
+    public MatchAttemptRecord logMatchAttempt(Long initiatorStudentId, Long candidateStudentId) {
         MatchAttemptRecord record = new MatchAttemptRecord();
-        record.setStudentAId(studentAId);
-        record.setStudentBId(studentBId);
-        record.setStatus(Status.MATCHED);
+        record.setInitiatorStudentId(initiatorStudentId);
+        record.setCandidateStudentId(candidateStudentId);
+        record.setStatus(Status.PENDING_REVIEW); // Matches enum in your model
 
-        return repository.save(record);
+        return attemptRepo.save(record);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
+        return attemptRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
+    }
+
+    @Override
+    public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
+        MatchAttemptRecord attempt = attemptRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
+
+        // Convert String to Enum safely
+        attempt.setStatus(Status.valueOf(status.toUpperCase()));
+
+        return attemptRepo.save(attempt);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAllMatchAttempts() {
+        return attemptRepo.findAll();
     }
 }
