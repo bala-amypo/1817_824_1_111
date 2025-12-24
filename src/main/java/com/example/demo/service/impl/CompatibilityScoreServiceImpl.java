@@ -144,7 +144,7 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
         CompatibilityScoreRecord record = new CompatibilityScoreRecord();
         record.setStudentAId(studentAId);
         record.setStudentBId(studentBId);
-        record.setScore(75);
+        record.setScore(75.0);
         record.setCompatibilityLevel(CompatibilityLevel.GOOD);
 
         return repository.save(record);
