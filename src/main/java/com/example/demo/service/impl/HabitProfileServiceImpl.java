@@ -50,7 +50,7 @@ package com.example.demo.service.impl;
 import com.example.demo.model.HabitProfile;
 import com.example.demo.repository.HabitProfileRepository;
 import com.example.demo.service.HabitProfileService;
-import com.example.demo.service.ResourceNotFoundException;
+import com.example.demo.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
