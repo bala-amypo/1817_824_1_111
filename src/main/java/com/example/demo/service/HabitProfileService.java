@@ -18,4 +18,11 @@ public interface HabitProfileService {
     HabitProfile createHabitProfile(HabitProfile habitProfile);
 
     HabitProfile getHabitProfileByStudentId(Long studentId);
+     HabitProfile createOrUpdateHabit(HabitProfile habitProfile);
+
+    List<HabitProfile> getAllHabitProfiles();
+
+    HabitProfile getHabitById(Long id);
+
+    HabitProfile getHabitByStudent(Long studentId);
 }

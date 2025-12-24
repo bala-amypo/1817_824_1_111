@@ -76,8 +76,7 @@
 //         return repository.findByStudentId(studentId)
 //                 .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
 //     }
-// }
-package com.example.demo.service.impl;
+// }package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.HabitProfile;
@@ -99,8 +98,24 @@ public class HabitProfileServiceImpl implements HabitProfileService {
     }
 
     @Override
+    public HabitProfile createHabitProfile(HabitProfile habitProfile) {
+        return repository.save(habitProfile);
+    }
+
+    @Override
+    public HabitProfile getHabitProfileByStudentId(Long studentId) {
+        return repository.findByStudentId(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
+    }
+
+    @Override
     public HabitProfile createOrUpdateHabit(HabitProfile habitProfile) {
         return repository.save(habitProfile);
+    }
+
+    @Override
+    public List<HabitProfile> getAllHabitProfiles() {
+        return repository.findAll();
     }
 
     @Override
@@ -113,10 +128,5 @@ public class HabitProfileServiceImpl implements HabitProfileService {
     public HabitProfile getHabitByStudent(Long studentId) {
         return repository.findByStudentId(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
-    }
-
-    @Override
-    public List<HabitProfile> getAllHabitProfiles() {
-        return repository.findAll();
     }
 }
