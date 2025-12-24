@@ -29,6 +29,8 @@ public interface CompatibilityScoreRecordRepository
     // Optional<CompatibilityScoreRecord>
     // findByStudentAIdAndStudentBId(Long a, Long b);
 
-    // List<CompatibilityScoreRecord>
-    // findByStudentAIdOrStudentBId(Long a, Long b);
+
+   // CompatibilityScoreRecordRepository.java
+List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(Long studentAId, Long studentBId);
+
 }

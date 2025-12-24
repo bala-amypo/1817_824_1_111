@@ -1,70 +1,3 @@
-// package com.example.demo.model;
-
-// import jakarta.persistence.*;
-
-// @Entity
-// @Table(name = "room_assignments")
-// public class RoomAssignmentRecord {
-
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-
-//     private String roomNumber;
-
-//     private Long studentAId;
-//     private Long studentBId;
-
-//     @Enumerated(EnumType.STRING)
-//     private Status status;
-
-//     public enum Status {
-//         ACTIVE,
-//         COMPLETED
-//     }
-
-//     // ---------- Getters & Setters ----------
-
-//     public Long getId() {
-//         return id;
-//     }
-
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
-
-//     public String getRoomNumber() {
-//         return roomNumber;
-//     }
-
-//     public void setRoomNumber(String roomNumber) {
-//         this.roomNumber = roomNumber;
-//     }
-
-//     public Long getStudentAId() {
-//         return studentAId;
-//     }
-
-//     public void setStudentAId(Long studentAId) {
-//         this.studentAId = studentAId;
-//     }
-
-//     public Long getStudentBId() {
-//         return studentBId;
-//     }
-
-//     public void setStudentBId(Long studentBId) {
-//         this.studentBId = studentBId;
-//     }
-
-//     public Status getStatus() {
-//         return status;
-//     }
-
-//     public void setStatus(Status status) {
-//         this.status = status;
-//     }
-// }
 package com.example.demo.model;
 
 import jakarta.persistence.*;
@@ -77,19 +10,58 @@ public class RoomAssignmentRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentId;
-    private Long roomId;
+    private String roomNumber;
 
-    // Default constructor
-    public RoomAssignmentRecord() {}
+    private Long studentAId;
+    private Long studentBId;
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    public Long getStudentId() { return studentId; }
-    public void setStudentId(Long studentId) { this.studentId = studentId; }
+    public enum Status {
+        ACTIVE,
+        COMPLETED
+    }
 
-    public Long getRoomId() { return roomId; }
-    public void setRoomId(Long roomId) { this.roomId = roomId; }
+    // ---------- Getters & Setters ----------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public Long getStudentAId() {
+        return studentAId;
+    }
+
+    public void setStudentAId(Long studentAId) {
+        this.studentAId = studentAId;
+    }
+
+    public Long getStudentBId() {
+        return studentBId;
+    }
+
+    public void setStudentBId(Long studentBId) {
+        this.studentBId = studentBId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

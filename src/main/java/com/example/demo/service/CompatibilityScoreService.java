@@ -18,9 +18,7 @@ import java.util.List;
 public interface CompatibilityScoreService {
 
     CompatibilityScoreRecord computeScore(Long studentAId, Long studentBId);
-    // CompatibilityScoreRecordRepository.java
-List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(Long studentAId, Long studentBId);
-
+    
     CompatibilityScoreRecord getScoreById(Long id);
 
     List<CompatibilityScoreRecord> getScoresForStudent(Long studentId);
