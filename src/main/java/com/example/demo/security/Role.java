@@ -1,3 +1,6 @@
-public class Role{
-    
+package com.example.demo.security;
+
+public enum Role {
+    ADMIN,
+    USER
 }
