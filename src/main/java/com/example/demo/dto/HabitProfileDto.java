@@ -1,61 +1,61 @@
 package com.example.demo.dto;
 
-import java.time.LocalDateTime;
+import com.example.demo.model.HabitProfile;
 
 public class HabitProfileDto {
 
-    private Long id;
     private Long studentId;
-
-    private String sleepSchedule;
     private Integer studyHoursPerDay;
-    private String cleanlinessLevel;
-    private String noiseTolerance;
-    private String socialPreference;
+    private HabitProfile.SleepSchedule sleepSchedule;
+    private HabitProfile.CleanlinessLevel cleanlinessLevel;
+    private HabitProfile.NoiseTolerance noiseTolerance;
+    private HabitProfile.SocialPreference socialPreference;
 
-    private LocalDateTime updatedAt;
-
-    public HabitProfileDto() {}
-
-    public HabitProfileDto(Long id,
-                           Long studentId,
-                           String sleepSchedule,
-                           Integer studyHoursPerDay,
-                           String cleanlinessLevel,
-                           String noiseTolerance,
-                           String socialPreference,
-                           LocalDateTime updatedAt) {
-        this.id = id;
-        this.studentId = studentId;
-        this.sleepSchedule = sleepSchedule;
-        this.studyHoursPerDay = studyHoursPerDay;
-        this.cleanlinessLevel = cleanlinessLevel;
-        this.noiseTolerance = noiseTolerance;
-        this.socialPreference = socialPreference;
-        this.updatedAt = updatedAt;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-    public Long getStudentId() { return studentId; }
-    public void setStudentId(Long studentId) { this.studentId = studentId; }
+    public Integer getStudyHoursPerDay() {
+        return studyHoursPerDay;
+    }
 
-    public String getSleepSchedule() { return sleepSchedule; }
-    public void setSleepSchedule(String sleepSchedule) { this.sleepSchedule = sleepSchedule; }
+    public void setStudyHoursPerDay(Integer studyHoursPerDay) {
+        this.studyHoursPerDay = studyHoursPerDay;
+    }
 
-    public Integer getStudyHoursPerDay() { return studyHoursPerDay; }
-    public void setStudyHoursPerDay(Integer studyHoursPerDay) { this.studyHoursPerDay = studyHoursPerDay; }
+    public HabitProfile.SleepSchedule getSleepSchedule() {
+        return sleepSchedule;
+    }
 
-    public String getCleanlinessLevel() { return cleanlinessLevel; }
-    public void setCleanlinessLevel(String cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
+    public void setSleepSchedule(HabitProfile.SleepSchedule sleepSchedule) {
+        this.sleepSchedule = sleepSchedule;
+    }
 
-    public String getNoiseTolerance() { return noiseTolerance; }
-    public void setNoiseTolerance(String noiseTolerance) { this.noiseTolerance = noiseTolerance; }
+    public HabitProfile.CleanlinessLevel getCleanlinessLevel() {
+        return cleanlinessLevel;
+    }
 
-    public String getSocialPreference() { return socialPreference; }
-    public void setSocialPreference(String socialPreference) { this.socialPreference = socialPreference; }
+    public void setCleanlinessLevel(HabitProfile.CleanlinessLevel cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
+    }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public HabitProfile.NoiseTolerance getNoiseTolerance() {
+        return noiseTolerance;
+    }
+
+    public void setNoiseTolerance(HabitProfile.NoiseTolerance noiseTolerance) {
+        this.noiseTolerance = noiseTolerance;
+    }
+
+    public HabitProfile.SocialPreference getSocialPreference() {
+        return socialPreference;
+    }
+
+    public void setSocialPreference(HabitProfile.SocialPreference socialPreference) {
+        this.socialPreference = socialPreference;
+    }
 }
