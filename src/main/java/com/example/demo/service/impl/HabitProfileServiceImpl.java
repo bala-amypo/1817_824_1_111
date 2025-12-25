@@ -76,7 +76,9 @@
 //         return repository.findByStudentId(studentId)
 //                 .orElseThrow(() -> new ResourceNotFoundException("Habit profile not found"));
 //     }
-// }package com.example.demo.service.impl;
+// }
+
+package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.HabitProfile;
