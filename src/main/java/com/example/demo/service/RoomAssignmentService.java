@@ -1,41 +1,12 @@
-// package com.example.demo.service;
-
-// import com.example.demo.model.RoomAssignmentRecord;
-// import java.util.List;
-
-// public interface RoomAssignmentService {
-//     RoomAssignmentRecord assignRoom(RoomAssignmentRecord record);
-//     RoomAssignmentRecord updateRoomStatus(Long id, String status);
-//     List<RoomAssignmentRecord> getAssignmentsForStudent(Long studentId);
-//     RoomAssignmentRecord getAssignmentById(Long id);
-//     List<RoomAssignmentRecord> getAllRoomAssignments();
-// }
-// package com.example.demo.service;
-
-// import com.example.demo.model.RoomAssignmentRecord;
-
-// public interface RoomAssignmentService {
-
-//     RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
-// }
 package com.example.demo.service;
 
 import com.example.demo.model.RoomAssignmentRecord;
-
-import java.util.List;
+import java.util.*;
 
 public interface RoomAssignmentService {
-
-    RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
-
-    // ✅ Overload REQUIRED by testcases
-    RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId, String roomNumber);
-
-    RoomAssignmentRecord getAssignmentById(Long id);
-
-    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
-
-    List<RoomAssignmentRecord> getAllAssignments();
-
+    RoomAssignmentRecord assignRoom(RoomAssignmentRecord r);
     RoomAssignmentRecord updateStatus(Long id, String status);
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long id);
+    RoomAssignmentRecord getAssignmentById(Long id);
+    List<RoomAssignmentRecord> getAllAssignments();
 }
