@@ -27,4 +27,6 @@ public interface StudentProfileService {
     StudentProfile getStudentByStudentId(String studentId);
 
     List<StudentProfile> getAllStudents();
+    StudentProfile updateStatus(Long id, String status);
+
 }

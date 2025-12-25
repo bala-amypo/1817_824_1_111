@@ -86,9 +86,10 @@
 // }package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.RoomAssignmentRecord;
-import com.example.demo.repository.RoomAssignmentRecordRepository;
-import com.example.demo.service.RoomAssignmentService;
+import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.model.MatchAttemptRecord.Status;
+import com.example.demo.repository.MatchAttemptRecordRepository;
+import com.example.demo.service.MatchAttemptService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -96,44 +97,43 @@ import java.util.List;
 
 @Service
 @Transactional
-public class RoomAssignmentServiceImpl implements RoomAssignmentService {
+public class MatchAttemptServiceImpl implements MatchAttemptService {
 
-    private final RoomAssignmentRecordRepository repository;
+    private final MatchAttemptRecordRepository repository;
 
-    public RoomAssignmentServiceImpl(RoomAssignmentRecordRepository repository) {
+    public MatchAttemptServiceImpl(MatchAttemptRecordRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId) {
-        RoomAssignmentRecord record = new RoomAssignmentRecord();
+    public MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId) {
+
+        MatchAttemptRecord record = new MatchAttemptRecord();
         record.setStudentAId(studentAId);
         record.setStudentBId(studentBId);
-        record.setStatus("ASSIGNED");
+        record.setStatus(Status.MATCHED);
+
         return repository.save(record);
     }
 
     @Override
-    public RoomAssignmentRecord getAssignmentById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Assignment not found"));
-    }
-
-    @Override
-    public List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId) {
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
         return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
-    public List<RoomAssignmentRecord> getAllAssignments() {
-        return repository.findAll();
+    public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
+
+        MatchAttemptRecord record = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Match attempt not found"));
+
+        record.setStatus(Status.valueOf(status.toUpperCase()));
+        return repository.save(record);
     }
 
     @Override
-    public RoomAssignmentRecord updateStatus(Long id, String status) {
-        RoomAssignmentRecord record = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Assignment not found"));
-        record.setStatus(status.toUpperCase());
-        return repository.save(record);
+    public List<MatchAttemptRecord> getAllMatchAttempts() {
+        return repository.findAll();
     }
 }
