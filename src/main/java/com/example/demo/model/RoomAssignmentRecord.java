@@ -79,7 +79,7 @@ public class RoomAssignmentRecord {
 
     private Long studentAId;
     private Long studentBId;
-
+private String roomNumber;
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -89,7 +89,14 @@ public class RoomAssignmentRecord {
     }
 
     // -------- getters & setters --------
+ public String getRoomNumber() {
+        return roomNumber;
+    }
 
+    // ✅ THIS IS WHAT WAS MISSING
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
     public Long getId() {
         return id;
     }
