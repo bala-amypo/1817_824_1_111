@@ -107,10 +107,14 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     @Override
     public RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId) {
+
         RoomAssignmentRecord record = new RoomAssignmentRecord();
         record.setStudentAId(studentAId);
         record.setStudentBId(studentBId);
-        record.setStatus("ASSIGNED");
+
+        // ✅ FIX HERE
+        record.setStatus(RoomAssignmentRecord.Status.ASSIGNED);
+
         return repository.save(record);
     }
 
@@ -132,9 +136,15 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     @Override
     public RoomAssignmentRecord updateStatus(Long id, String status) {
+
         RoomAssignmentRecord record = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Assignment not found"));
-        record.setStatus(status.toUpperCase());
+
+        // ✅ FIX HERE (THIS MATCHES YOUR TEST CASE)
+        record.setStatus(
+                RoomAssignmentRecord.Status.valueOf(status.toUpperCase())
+        );
+
         return repository.save(record);
     }
 }
