@@ -120,6 +120,12 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
         return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
+    @Override
+public MatchAttemptRecord getAttemptById(Long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
+}
+
 
     @Override
     public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
