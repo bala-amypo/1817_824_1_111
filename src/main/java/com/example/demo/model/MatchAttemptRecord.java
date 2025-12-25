@@ -76,37 +76,51 @@ public class MatchAttemptRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentAId;
-    private Long studentBId;
+    private Long initiatorStudentId;
+    private Long candidateStudentId;
+    private Long resultScoreId;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
     public enum Status {
-        MATCHED,
-        PENDING
+        PENDING_REVIEW,
+        ACCEPTED,
+        REJECTED
     }
 
-    // ---------- Getters & Setters ----------
+    // ---------- getters & setters ----------
 
     public Long getId() {
         return id;
     }
 
-    public Long getStudentAId() {
-        return studentAId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setStudentAId(Long studentAId) {
-        this.studentAId = studentAId;
+    public Long getInitiatorStudentId() {
+        return initiatorStudentId;
     }
 
-    public Long getStudentBId() {
-        return studentBId;
+    public void setInitiatorStudentId(Long initiatorStudentId) {
+        this.initiatorStudentId = initiatorStudentId;
     }
 
-    public void setStudentBId(Long studentBId) {
-        this.studentBId = studentBId;
+    public Long getCandidateStudentId() {
+        return candidateStudentId;
+    }
+
+    public void setCandidateStudentId(Long candidateStudentId) {
+        this.candidateStudentId = candidateStudentId;
+    }
+
+    public Long getResultScoreId() {
+        return resultScoreId;
+    }
+
+    public void setResultScoreId(Long resultScoreId) {
+        this.resultScoreId = resultScoreId;
     }
 
     public Status getStatus() {
