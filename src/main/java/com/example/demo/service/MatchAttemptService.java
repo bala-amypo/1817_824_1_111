@@ -11,17 +11,19 @@
 // }
 package com.example.demo.service;
 
-import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.model.RoomAssignmentRecord;
 
 import java.util.List;
 
-public interface MatchAttemptService {
+public interface RoomAssignmentService {
 
-    MatchAttemptRecord logMatchAttempt(Long studentAId, Long studentBId);
+    RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
 
-    MatchAttemptRecord updateAttemptStatus(Long id, String status);
+    RoomAssignmentRecord getAssignmentById(Long id);
 
-    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
 
-    List<MatchAttemptRecord> getAllMatchAttempts();
+    List<RoomAssignmentRecord> getAllAssignments();
+
+    RoomAssignmentRecord updateStatus(Long id, String status);
 }
