@@ -27,6 +27,8 @@ public interface CompatibilityScoreRecordRepository
 
     List<CompatibilityScoreRecord>
     findByStudentAIdOrStudentBId(Long studentAId, Long studentBId);
+CompatibilityScoreRecord
+findByStudentAIdAndStudentBId(Long a, Long b);
 
     // ✅ REQUIRED BY TESTCASE
     CompatibilityScoreRecord

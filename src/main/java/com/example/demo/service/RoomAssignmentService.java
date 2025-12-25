@@ -28,6 +28,9 @@ public interface RoomAssignmentService {
 
     RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId);
 
+    // ✅ Overload REQUIRED by testcases
+    RoomAssignmentRecord assignRoom(Long studentAId, Long studentBId, String roomNumber);
+
     RoomAssignmentRecord getAssignmentById(Long id);
 
     List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
