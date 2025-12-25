@@ -4,17 +4,15 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "habit_profiles")
 public class HabitProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long studentId;
-
     private Integer studyHoursPerDay;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private SleepSchedule sleepSchedule;
@@ -28,27 +26,24 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
 
-    private LocalDateTime updatedAt;
+    public enum SleepSchedule { EARLY, REGULAR, LATE }
+    public enum CleanlinessLevel { LOW, MEDIUM, HIGH }
+    public enum NoiseTolerance { LOW, MEDIUM, HIGH }
+    public enum SocialPreference { INTROVERT, BALANCED, EXTROVERT }
 
-    // ---------- ENUMS (REQUIRED) ----------
-
-    public enum SleepSchedule {
-        EARLY, REGULAR, LATE
+    public HabitProfile() {
     }
 
-    public enum CleanlinessLevel {
-        LOW, MEDIUM, HIGH
+    public HabitProfile(Long studentId, Integer studyHoursPerDay, SleepSchedule sleepSchedule, 
+                        CleanlinessLevel cleanlinessLevel, NoiseTolerance noiseTolerance, 
+                        SocialPreference socialPreference) {
+        this.studentId = studentId;
+        this.studyHoursPerDay = studyHoursPerDay;
+        this.sleepSchedule = sleepSchedule;
+        this.cleanlinessLevel = cleanlinessLevel;
+        this.noiseTolerance = noiseTolerance;
+        this.socialPreference = socialPreference;
     }
-
-    public enum NoiseTolerance {
-        LOW, MEDIUM, HIGH
-    }
-
-    public enum SocialPreference {
-        INTROVERT, BALANCED, EXTROVERT
-    }
-
-    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -72,6 +67,14 @@ public class HabitProfile {
 
     public void setStudyHoursPerDay(Integer studyHoursPerDay) {
         this.studyHoursPerDay = studyHoursPerDay;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public SleepSchedule getSleepSchedule() {
@@ -104,13 +107,5 @@ public class HabitProfile {
 
     public void setSocialPreference(SocialPreference socialPreference) {
         this.socialPreference = socialPreference;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
