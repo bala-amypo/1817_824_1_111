@@ -88,6 +88,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.repository.MatchAttemptRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 import jakarta.transaction.Transactional;
@@ -99,38 +100,32 @@ import java.util.List;
 @Transactional
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
-    private final MatchAttemptRecordRepository repository;
+    private final MatchAttemptRecordRepository matchRepo;
+    private final CompatibilityScoreRecordRepository scoreRepo;
 
-    // ✅ REQUIRED BY TESTCASES
-    public MatchAttemptServiceImpl(MatchAttemptRecordRepository repository) {
-        this.repository = repository;
+    public MatchAttemptServiceImpl(MatchAttemptRecordRepository matchRepo,
+                                   CompatibilityScoreRecordRepository scoreRepo) {
+        this.matchRepo = matchRepo;
+        this.scoreRepo = scoreRepo;
     }
 
     @Override
     public MatchAttemptRecord logMatchAttempt(Long initiatorId, Long candidateId) {
-
         MatchAttemptRecord attempt = new MatchAttemptRecord();
         attempt.setInitiatorStudentId(initiatorId);
         attempt.setCandidateStudentId(candidateId);
-
-        // ✅ ENUM VALUE MUST MATCH TESTCASE
         attempt.setStatus(MatchAttemptRecord.Status.PENDING_REVIEW);
-
-        return repository.save(attempt);
+        return matchRepo.save(attempt);
     }
 
     @Override
     public MatchAttemptRecord getAttemptById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Match attempt not found"));
+        return matchRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
     }
 
     @Override
     public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
-
-        return repository.findByInitiatorStudentIdOrCandidateStudentId(
-                studentId, studentId
-        );
+        return matchRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
     }
 }
