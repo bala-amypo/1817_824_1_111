@@ -77,21 +77,18 @@ public class RoomAssignmentRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String roomNumber;
-
     private Long studentAId;
     private Long studentBId;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    // ✅ UPDATED ENUM (TESTCASE COMPATIBLE)
     public enum Status {
-        ASSIGNED,
+        ACTIVE,
         COMPLETED
     }
 
-    // ---------- Getters & Setters ----------
+    // -------- getters & setters --------
 
     public Long getId() {
         return id;
@@ -99,14 +96,6 @@ public class RoomAssignmentRecord {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
     }
 
     public Long getStudentAId() {

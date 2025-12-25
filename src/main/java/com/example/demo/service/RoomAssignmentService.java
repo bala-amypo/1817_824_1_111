@@ -36,4 +36,3 @@ public interface RoomAssignmentService {
 
     RoomAssignmentRecord updateStatus(Long id, String status);
 }
-
