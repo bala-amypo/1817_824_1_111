@@ -123,19 +123,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public StudentProfile createStudent(StudentProfile studentProfile) {
-        return repository.save(studentProfile);
-    }
-
-    @Override
     public StudentProfile getStudentById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
-    }
-
-    @Override
-    public StudentProfile getStudentByStudentId(String studentId) {
-        return repository.findByStudentId(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
@@ -145,11 +134,9 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public StudentProfile updateStatus(Long id, String status) {
-        StudentProfile student = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
-
-        student.setStatus(status); // Assuming StudentProfile has a `status` field
+    public StudentProfile updateStudentStatus(long id, boolean active) {
+        StudentProfile student = getStudentById(id);
+        student.setActive(active);
         return repository.save(student);
     }
 }

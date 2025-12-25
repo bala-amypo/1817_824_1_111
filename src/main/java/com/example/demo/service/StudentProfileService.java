@@ -20,13 +20,10 @@ import java.util.List;
 
 public interface StudentProfileService {
 
-    StudentProfile createStudent(StudentProfile studentProfile);
-
     StudentProfile getStudentById(Long id);
 
-    StudentProfile getStudentByStudentId(String studentId);
-
     List<StudentProfile> getAllStudents();
-    StudentProfile updateStatus(Long id, String status);
 
+    StudentProfile updateStudentStatus(long id, boolean active);
 }
+
