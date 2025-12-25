@@ -1,36 +1,46 @@
-// package com.example.demo.controller;
+package com.example.demo.controller;
 
-// import com.example.demo.model.CompatibilityScoreRecord;
-// import com.example.demo.service.CompatibilityScoreService;
-// import org.springframework.web.bind.annotation.*;
-// import java.util.List;
+import com.example.demo.model.CompatibilityScoreRecord;
+import com.example.demo.service.CompatibilityScoreService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-// @RestController
-// @RequestMapping("/api/compatibility")
-// public class CompatibilityScoreController {
+@RestController
+@RequestMapping("/api/compatibility")
+@Tag(name = "Compatibility", description = "Compatibility score management")
+public class CompatibilityScoreController {
 
-//     private final CompatibilityScoreService service;
-//     public CompatibilityScoreController(CompatibilityScoreService service) {
-//         this.service = service;
-//     }
+    private final CompatibilityScoreService compatibilityScoreService;
 
-//     @PostMapping("/compute/{a}/{b}")
-//     public CompatibilityScoreRecord compute(@PathVariable Long a, @PathVariable Long b) {
-//         return service.computeScore(a, b);
-//     }
+    public CompatibilityScoreController(CompatibilityScoreService compatibilityScoreService) {
+        this.compatibilityScoreService = compatibilityScoreService;
+    }
 
-//     @GetMapping("/{id}")
-//     public CompatibilityScoreRecord byId(@PathVariable Long id) {
-//         return service.getScoreById(id);
-//     }
+    @PostMapping("/compute/{studentAId}/{studentBId}")
+    @Operation(summary = "Compute compatibility score")
+    public ResponseEntity<CompatibilityScoreRecord> computeScore(@PathVariable Long studentAId, 
+                                                                 @PathVariable Long studentBId) {
+        return ResponseEntity.ok(compatibilityScoreService.computeScore(studentAId, studentBId));
+    }
 
-//     @GetMapping("/student/{studentId}")
-//     public List<CompatibilityScoreRecord> byStudent(@PathVariable Long studentId) {
-//         return service.getScoresForStudent(studentId);
-//     }
+    @GetMapping("/student/{studentId}")
+    @Operation(summary = "Get all scores for a student")
+    public ResponseEntity<List<CompatibilityScoreRecord>> getScoresForStudent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(compatibilityScoreService.getScoresForStudent(studentId));
+    }
 
-//     @GetMapping
-//     public List<CompatibilityScoreRecord> getAll() {
-//         return service.getAllScores();
-//     }
-// }
+    @GetMapping("/{id}")
+    @Operation(summary = "Get score by ID")
+    public ResponseEntity<CompatibilityScoreRecord> getScore(@PathVariable Long id) {
+        return ResponseEntity.ok(compatibilityScoreService.getScoreById(id));
+    }
+
+    @GetMapping
+    @Operation(summary = "Get all compatibility scores")
+    public ResponseEntity<List<CompatibilityScoreRecord>> getAllScores() {
+        return ResponseEntity.ok(compatibilityScoreService.getAllScores());
+    }
+}
