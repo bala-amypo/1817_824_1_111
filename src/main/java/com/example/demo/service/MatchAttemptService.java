@@ -9,19 +9,17 @@
 //     MatchAttemptRecord updateAttemptStatus(Long attemptId, String status);
 //     List<MatchAttemptRecord> getAllMatchAttempts();
 // }
-package com.example.demo.repository;
+package com.example.demo.service;
 
 import com.example.demo.model.MatchAttemptRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MatchAttemptRecordRepository
-        extends JpaRepository<MatchAttemptRecord, Long> {
+public interface MatchAttemptService {
 
-    List<MatchAttemptRecord>
-    findByInitiatorStudentIdOrCandidateStudentId(
-            Long initiatorStudentId,
-            Long candidateStudentId
-    );
+    MatchAttemptRecord logMatchAttempt(Long initiatorId, Long candidateId);
+
+    MatchAttemptRecord getAttemptById(Long id);
+
+    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
 }
