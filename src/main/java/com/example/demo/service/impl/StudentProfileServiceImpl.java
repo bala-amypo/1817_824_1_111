@@ -110,6 +110,7 @@ import com.example.demo.service.StudentProfileService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -123,8 +124,22 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
+    public StudentProfile createStudent(StudentProfile student) {
+        student.setCreatedAt(LocalDateTime.now());
+        student.setActive(true);
+        student.setStatus("NEW");
+        return repository.save(student);
+    }
+
+    @Override
     public StudentProfile getStudentById(Long id) {
         return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+    }
+
+    @Override
+    public StudentProfile getStudentByStudentId(String studentId) {
+        return repository.findByStudentId(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
@@ -137,6 +152,11 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     public StudentProfile updateStudentStatus(long id, boolean active) {
         StudentProfile student = getStudentById(id);
         student.setActive(active);
+        student.setStatus(active ? "ACTIVE" : "INACTIVE"); // optional, for testcases
         return repository.save(student);
     }
+
+    
+
+    
 }
