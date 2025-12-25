@@ -85,7 +85,7 @@ public class MatchAttemptRecord {
 
     public enum Status {
         PENDING_REVIEW,
-        ACCEPTED,
+        MATCHED,
         REJECTED
     }
 
